@@ -12,12 +12,10 @@ public class respond {
     static public void main(String[] args) throws LoginException, InterruptedException {
 
         JDABuilder builder = new JDABuilder(AccountType.BOT);
-        String token = "NTM1NDYyMjE4NTMyMTI2NzMx.DyMCog.79vb9KtBFKv7yJXkKqP9osjiM-I";
-        //JDA api = new JDABuilder(AccountType.BOT).setToken(token).build();
+        String token = "insert ur token here";
         builder.setToken(token);
         builder.addEventListeners(new botListner());
         builder.build();
-        //api.addEventListener(new botListner());
 
     }
 }
@@ -30,11 +28,14 @@ class botListner extends ListenerAdapter {
         if ( event.getMessage().getContentRaw().equals("ping") ) {
             sendMessage(event);
         }
+        if ( event.getMessage().getContentRaw().equals("ping") ) {
+            sendMessage(event);
+        }
     }
 
     @Override
     public void onUserTyping(UserTypingEvent event){
-        System.out.println(event.getUser().getAsTag());
+
         if(event.getUser().getAsTag().equals("grfcMDA#5863")) {
             event.getChannel().sendMessage("MDA is typing").queue();
             event.getChannel().sendMessage(":rage: :rage: :rage: ").queue();

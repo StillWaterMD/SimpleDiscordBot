@@ -1,0 +1,1 @@
+worker: java -jar build\libs\1st-bot-1.0-SNAPSHOT-all.jar
