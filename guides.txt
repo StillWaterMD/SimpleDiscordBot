@@ -1,2 +1,8 @@
 https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
 https://medium.com/@nastyworldgamer/deploying-a-java-discord-bot-jar-on-heroku-32020474ffcd
+
+heroku git:clone -a project
+cd project
+git add *
+git commit - m "message"
+git push heroku master

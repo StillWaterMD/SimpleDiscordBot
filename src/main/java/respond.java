@@ -1,18 +1,14 @@
 import net.dv8tion.jda.api.AccountType;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.DisconnectEvent;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.user.UserTypingEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.managers.EmoteManager;
-import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
+
 
 import javax.security.auth.login.LoginException;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Random;
 
 public class respond {
@@ -32,28 +28,43 @@ public class respond {
 }
 
 class botListner extends ListenerAdapter {
+
+    HashMap<String, UserStats> map;
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+
+
+        Message message = event.getMessage();
 
         if (event.getMessage().getContentRaw().equals("ping")) {
             sendMessage(event);
         }
-        if(event.getMessage().getContentRaw().equals("test")) {
+        if (event.getMessage().getContentRaw().equals("test")) {
             Guild guild = event.getGuild();
             event.getMessage().addReaction(guild.getEmoteById(542308723176112148L)).queue();
             event.getMessage().addReaction("\uD83E\uDD14").queue();
+        }
+        if (event.getMessage().getContentRaw().trim().toLowerCase().equals("count")) {
+
+            UserService.reactToCount(map, event);
+        }
+
+        if (event.getAuthor().getId().equals("74817348367814656")) {
+            event.getMessage().addReaction("\uD83E\uDD14").queue();
+
         }
 
 
     }
 
+
     @Override
     public void onUserTyping(UserTypingEvent event) {
-
-        if (event.getUser().getAsTag().equals("grfcMDA#5863")) {
+        if (event.getUser().getId().equals("532923085872168961") || event.getUser().getId().equals("159769254705627137")) {
             try {
-                event.getChannel().sendMessage("MDA is typing").queue();
-                event.getChannel().sendMessage(":rage: :rage: :rage: ").queue();
+                // event.getChannel().sendMessage("MDA is typing").queue();
+                //event.getChannel().sendMessage(":rage: :rage: :rage: ").queue();
 
             } catch (Exception ex) {
 
@@ -67,18 +78,12 @@ class botListner extends ListenerAdapter {
 
     private void sendMessage(MessageReceivedEvent event) {
 
-        String[] str = messageArr();
-        for (int i = 0; i < str.length; ++i) {
-            try {
+        try {
+            event.getChannel().sendMessage(createMessage()).queue();
 
-                event.getChannel().sendMessage(str[i]).queue();
-
-            } catch (Exception ex) {
-
-            }
+        } catch (Exception ex) {
 
         }
-
 
 
     }
@@ -96,18 +101,11 @@ class botListner extends ListenerAdapter {
 
     }
 
-    private String[] messageArr() {
-        Random rand = new Random();
-        //String[] strArr = new String [rand.nextInt(4) + 3];
-        String[] strArr = new String[5];
-        for (int i = 0; i < strArr.length; ++i) {
 
-            strArr[i] = createMessage();
+    botListner() {
 
-        }
-
-        return strArr;
+        super();
+        this.map = new HashMap<>();
     }
-
 
 }
