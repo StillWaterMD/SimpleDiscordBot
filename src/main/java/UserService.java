@@ -17,9 +17,18 @@ public class UserService {
             event.getChannel().sendMessage("1").queue();
 
         } else {
+            if(userS.counter == 3){
+                if(!userS.notified){
+                    String name = event.getAuthor().getName();
+                    event.getChannel().sendMessage("3 per day is a limit, " + name).queue();
+                    userS.notified = true;
+                }
 
-            int counter = ++userS.counter;
-            event.getChannel().sendMessage(counter + "").queue();
+            } else {
+                int counter = ++userS.counter;
+                event.getChannel().sendMessage(counter + "").queue();
+            }
+
 
         }
 

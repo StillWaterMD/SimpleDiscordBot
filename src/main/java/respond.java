@@ -2,6 +2,7 @@ import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.user.UserTypingEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -16,7 +17,7 @@ public class respond {
     static public void main(String[] args) {
         try {
             JDABuilder builder = new JDABuilder(AccountType.BOT);
-            String token = "token";
+            String token = "";
             builder.setToken(token);
             builder.addEventListeners(new botListner());
             builder.build();
@@ -30,6 +31,13 @@ public class respond {
 class botListner extends ListenerAdapter {
 
     HashMap<String, UserStats> map;
+    Random rand;
+
+    @Override
+    public void onReady(ReadyEvent event) {
+        super.onReady(event);
+        event.getJDA().getTextChannels().forEach(chanel -> {chanel.sendMessage("Hello there").queue();});
+    }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -37,10 +45,10 @@ class botListner extends ListenerAdapter {
 
         Message message = event.getMessage();
 
-        if (event.getMessage().getContentRaw().equals("ping")) {
+        if (event.getMessage().getContentRaw().toLowerCase().equals("ping")) {
             sendMessage(event);
         }
-        if (event.getMessage().getContentRaw().equals("test")) {
+        if (event.getMessage().getContentRaw().toLowerCase().equals("test")) {
             Guild guild = event.getGuild();
             event.getMessage().addReaction(guild.getEmoteById(542308723176112148L)).queue();
             event.getMessage().addReaction("\uD83E\uDD14").queue();
@@ -90,9 +98,7 @@ class botListner extends ListenerAdapter {
 
 
     private String createMessage() {
-
-        Random rand = new Random();
-        int amount = rand.nextInt(2) + 3;
+        int amount = rand.nextInt(5) + 1;
         String message = "";
         for (int i = 0; i < amount; ++i)
             message += ":thinking:";
@@ -105,6 +111,7 @@ class botListner extends ListenerAdapter {
     botListner() {
 
         super();
+        this.rand = new Random();
         this.map = new HashMap<>();
     }
 
