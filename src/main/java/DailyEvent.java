@@ -10,22 +10,18 @@ public class DailyEvent extends TimerTask {
 
     @Override
     public void run() {
-
         try {
             channel.sendMessage("ping").queue();
             timer.cancel();
             timer.purge();
         } catch (Exception ex) {
 
-
         }
-
     }
 
     DailyEvent(MessageChannel channel, Timer timer) {
         this.channel = channel;
         this.timer = timer;
-
     }
 }
 

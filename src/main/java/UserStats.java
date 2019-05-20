@@ -4,10 +4,7 @@ public class UserStats {
     boolean notified;
 
     UserStats(){
-
         this.counter = 0;
         this.notified = false;
-
     }
-
 }

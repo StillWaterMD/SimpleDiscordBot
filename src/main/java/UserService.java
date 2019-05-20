@@ -14,7 +14,6 @@ public class UserService {
             newUser.counter = 1;
             map.put(id, newUser);
             event.getChannel().sendMessage("1").queue();
-
         } else {
             if(userS.counter == 3){
                 if(!userS.notified){
@@ -22,15 +21,10 @@ public class UserService {
                     event.getChannel().sendMessage("3 per day is a limit, " + name).queue();
                     userS.notified = true;
                 }
-
             } else {
                 int counter = ++userS.counter;
                 event.getChannel().sendMessage(counter + "").queue();
             }
-
-
         }
-
     }
-
 }

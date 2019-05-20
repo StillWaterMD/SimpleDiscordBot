@@ -23,13 +23,11 @@ public class respond {
     static public void main(String[] args) {
         try {
             JDABuilder builder = new JDABuilder(AccountType.BOT);
-            String token = "";
+            String token = "NTM1NDYyMjE4NTMyMTI2NzMx.DzBgTg.ukp9pMBGBhIhJDIMeusX6QpqolQ";
             builder.setToken(token);
             builder.addEventListeners(new botListener());
             builder.build();
         } catch (LoginException le) {
-
-
         }
     }
 }
