@@ -7,13 +7,14 @@ public class DateProccessing {
 
         int hour = current.getHours();
         long totalShift;
+        int hourOfEvent = 17;
         long hourShift = 60 * 60 * 1000; //1 час в милисекундах
         long longDate = current.getTime();
 
-        if (hour > 15) {
-            totalShift = (24 - hour + 17) * hourShift;
+        if (hour > hourOfEvent) {
+            totalShift = (24 - hour + hourOfEvent) * hourShift;
         } else {
-            totalShift = (17 - hour) * hourShift + 30 * 60 * 1000;
+            totalShift = (hourOfEvent - hour) * hourShift + 30 * 60 * 1000;
         }
 
         current.setTime(longDate + totalShift);
