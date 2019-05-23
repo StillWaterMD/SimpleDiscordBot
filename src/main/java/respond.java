@@ -10,8 +10,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 
 import javax.security.auth.login.LoginException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
@@ -23,7 +21,7 @@ public class respond {
     static public void main(String[] args) {
         try {
             JDABuilder builder = new JDABuilder(AccountType.BOT);
-            String token = "NTM1NDYyMjE4NTMyMTI2NzMx.DzBgTg.ukp9pMBGBhIhJDIMeusX6QpqolQ";
+            String token = "";
             builder.setToken(token);
             builder.addEventListeners(new botListener());
             builder.build();
@@ -44,11 +42,12 @@ class botListener extends ListenerAdapter {
         String channelId = "535460087276240903";
         MessageChannel channel = event.getJDA().getTextChannelById(channelId);
         Date date = new Date();
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         DailyEvent dailyEvent = new DailyEvent(channel, timer);
 
-        date = DateProccessing.getExecutionDate(date);
-        channel.sendMessage("Hello there! We are expecting daily event at " + MessageGenerator.formatNumber(date.getHours()) + ":" + MessageGenerator.formatNumber(date.getMinutes())).queue();
+        date = DateProcessing.getExecutionDate(date);
+        channel.sendMessage("Hello there! We are expecting daily event at "
+                + MessageGenerator.formatNumber((date.getHours() + 3) % 24) //timeshift to moscow
+                + ":" + MessageGenerator.formatNumber(date.getMinutes())).queue();
         timer.schedule(dailyEvent, date);
     }
 
