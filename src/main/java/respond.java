@@ -1,8 +1,6 @@
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.user.UserTypingEvent;
@@ -10,10 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 
 import javax.security.auth.login.LoginException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Timer;
+import java.util.*;
 
 
 public class respond {
@@ -39,7 +34,7 @@ class botListener extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event) {
         super.onReady(event);
-        String channelId = "535460087276240903";
+        /*String channelId = "535460087276240903";
         MessageChannel channel = event.getJDA().getTextChannelById(channelId);
         Date date = new Date();
         DailyEvent dailyEvent = new DailyEvent(channel, timer);
@@ -48,7 +43,7 @@ class botListener extends ListenerAdapter {
         channel.sendMessage("Hello there! We are expecting daily event at "
                 + MessageGenerator.formatNumber((date.getHours() + 3) % 24) //timeshift to moscow
                 + ":" + MessageGenerator.formatNumber(date.getMinutes())).queue();
-        timer.schedule(dailyEvent, date);
+        timer.schedule(dailyEvent, date);*/
     }
 
     @Override
@@ -58,6 +53,18 @@ class botListener extends ListenerAdapter {
 
         if (text.equals("ping")) {
             sendMessage(event);
+        }
+        if ("emb".equals(text)) {
+
+            List<MessageEmbed.Field> fields = new ArrayList();
+            fields.add(new MessageEmbed.Field("testname1", ":frowning:", true, true));
+            fields.add(new MessageEmbed.Field("testname2", ":thinking:", true, true));
+            fields.add(new MessageEmbed.Field("testname3", "<:test:542308723176112148>", true, true));
+
+            event.getChannel().sendMessage(new MessageEmbed(null, "Emb message",
+                    "description", EmbedType.RICH, null, 0,
+                    null, null, null, null, null, null, fields)).queue();
+
         }
         if (text.equals("test")) {
             Guild guild = event.getGuild();
@@ -89,7 +96,6 @@ class botListener extends ListenerAdapter {
 
         try {
             event.getChannel().sendMessage(createMessage()).queue();
-
         } catch (Exception ex) {
         }
     }
