@@ -1,6 +1,6 @@
 https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
 https://medium.com/@nastyworldgamer/deploying-a-java-discord-bot-jar-on-heroku-32020474ffcd
-
+https://bintray.com/dv8fromtheworld/maven/JDA/4.2.0_180#
 heroku git:clone -a project
 cd project
 git add *
